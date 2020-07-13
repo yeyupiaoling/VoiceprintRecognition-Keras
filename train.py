@@ -6,13 +6,14 @@ import model
 import generator
 import argparse
 import datetime
+import tensorflow as tf
 
 # ===========================================
 #        Parse the argument
 # ===========================================
 parser = argparse.ArgumentParser()
 # set up training configuration.
-parser.add_argument('--gpu', default='', type=str, help='use GPU number')
+parser.add_argument('--gpu', default='0,1,2', type=str, help='use GPU number')
 parser.add_argument('--resume', default='', type=str, help='resume model path')
 parser.add_argument('--save_model_path', default='models', type=str, help='save model parent path')
 parser.add_argument('--log_path', default='logs', type=str, help='save tensorboard log parent path')
@@ -37,6 +38,10 @@ args = parser.parse_args()
 
 
 def main(args):
+    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    _ = tf.Session(config=config)
     # ==================================
     #       Get Train/Val.
     # ==================================
