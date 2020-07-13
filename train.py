@@ -7,7 +7,6 @@ import generator
 import argparse
 import datetime
 
-
 # ===========================================
 #        Parse the argument
 # ===========================================
@@ -15,10 +14,10 @@ parser = argparse.ArgumentParser()
 # set up training configuration.
 parser.add_argument('--gpu', default='', type=str, help='use GPU number')
 parser.add_argument('--resume', default='', type=str, help='resume model path')
-parser.add_argument('--save_model_path', default='model', type=str, help='save model parent path')
+parser.add_argument('--save_model_path', default='models', type=str, help='save model parent path')
 parser.add_argument('--log_path', default='logs', type=str, help='save tensorboard log parent path')
 parser.add_argument('--batch_size', default=16, type=int)
-parser.add_argument('--n_classes', default=1315, type=int, help='class dim number')
+parser.add_argument('--n_classes', default=7426, type=int, help='class dim number')
 parser.add_argument('--train_list', default='dataset/train_list.txt', type=str, help='train data list path')
 parser.add_argument('--val_list', default='dataset/val_list.txt', type=str, help='val data list path')
 parser.add_argument('--multiprocess', default=0, type=int, help='multi process read dataset. Windows must is 0')
@@ -139,14 +138,16 @@ def set_path(args):
     date = datetime.datetime.now().strftime("%Y-%m-%d")
 
     if args.aggregation_mode == 'avg':
-        exp_path = '{0}_{1}_{2}_{args.net}_bs{args.batch_size}_{args.optimizer}_' \
+        exp_path = '{0}_{1}_{2}_{args.net}_nclass{args.n_classes}_bs{args.batch_size}_{args.optimizer}_' \
                    'lr{args.lr}_bdim{args.bottleneck_dim}'.format(date, args.aggregation_mode, args.loss, args=args)
     elif args.aggregation_mode == 'vlad':
-        exp_path = '{0}_{1}_{2}_{args.net}_bs{args.batch_size}_{args.optimizer}_' \
-                   'lr{args.lr}_vlad{args.vlad_cluster}_bdim{args.bottleneck_dim}'.format(date, args.aggregation_mode, args.loss, args=args)
+        exp_path = '{0}_{1}_{2}_{args.net}_nclass{args.n_classes}_bs{args.batch_size}_{args.optimizer}_' \
+                   'lr{args.lr}_vlad{args.vlad_cluster}_bdim{args.bottleneck_dim}'.format(date, args.aggregation_mode,
+                                                                                          args.loss, args=args)
     elif args.aggregation_mode == 'gvlad':
-        exp_path = '{0}_{1}_{2}_{args.net}_bs{args.batch_size}_{args.optimizer}_lr{args.lr}_vlad{args.vlad_cluster}_' \
-                   'ghost{args.ghost_cluster}_bdim{args.bottleneck_dim}'.format(date, args.aggregation_mode, args.loss,date, args=args)
+        exp_path = '{0}_{1}_{2}_{args.net}_nclass{args.n_classes}_bs{args.batch_size}_{args.optimizer}_' \
+                   'lr{args.lr}_vlad{args.vlad_cluster}_ghost{args.ghost_cluster}_bdim{args.bottleneck_dim' \
+                   '}'.format(date, args.aggregation_mode, args.loss, date, args=args)
     else:
         raise IOError('==> unknown aggregation mode.')
     model_path = os.path.join(args.save_model_path, exp_path)

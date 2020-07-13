@@ -7,3 +7,5 @@ audio_db
 dataset
 pretrained
 infer_audio.wav
+logs
+models
