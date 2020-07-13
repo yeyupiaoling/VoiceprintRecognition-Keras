@@ -5,7 +5,7 @@
 
 # 安装环境
 
-本项目使用的是Keras2.3.1和Tensorflow1.15.3，音频处理使用librosa库，安装方法如下。
+本项目使用的是Python 3.7，Keras2.3.1和Tensorflow1.15.3，音频处理使用librosa库，安装方法如下。
 
 1、安装Tensorflow GPU版本，CUDA为10.0，CUDNN为7。
 ```shell script
@@ -17,7 +17,7 @@ pip install tensorflow-gpu==1.15.3
 pip install keras==2.3.1
 ```
 
-3、安装librosa库，最简单的方式就是使用pip命令安装，如下：
+3、安装librosa库，最简单的方式就是使用pip命令安装，如下。如安装的是librosa 0.6.3--0.7.2，依赖的是numba0.49.0，源码安装的时候要留意，否者会报错`No module named numba.decorators`。
 ```shell
 pip install pytest-runner
 pip install librosa
