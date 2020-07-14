@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 # set up training configuration.
 parser.add_argument('--n_classes', default=5994, type=int, help='class dim number')
 parser.add_argument('--audio1_path', default='audio/a_1.wav', type=str, help='contrast person1 audio path')
-parser.add_argument('--audio2_path', default='audio/z_1.wav', type=str, help='contrast person2 audio path')
+parser.add_argument('--audio2_path', default='audio/b_1.wav', type=str, help='contrast person2 audio path')
 parser.add_argument('--resume', default=r'pretrained/weights.h5', type=str, help='resume model path')
 # set up network configuration.
 parser.add_argument('--net', default='resnet34s', choices=['resnet34s', 'resnet34l'], type=str)
