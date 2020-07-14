@@ -33,6 +33,28 @@ python setup.py install
 
 如果出现`libsndfile64bit.dll': error 0x7e`错误，请指定安装版本0.6.3，如`pip install librosa==0.6.3`
 
+**如果出现`audioread.exceptions.NoBackendError`错误，解决方法如下。**
+
+**Windows：** 安装ffmpeg， 下载地址：[http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/](http://blog.gregzaal.com/how-to-install-ffmpeg-on-windows/)，笔者下载的是64位，static版。
+然后到C盘，笔者解压，修改文件名为 ffmpeg，存放在` `C:\Program Files\`目录下，并添加环境变量` `C:\Program Files\ffmpeg\bin`
+
+最后修改源码，路径为`C:\Python3.7\Lib\site-packages\audioread\ffdec.py`，修改32行代码，如下：
+```python
+COMMANDS = ('C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe', 'avconv')
+```
+
+**Linux：** 安装ffmpeg。
+```shell script
+sudo add-apt-repository ppa:djcj/hybrid
+sudo apt-get update
+sudo apt-get install ffmpeg  
+```
+
+配置环境变量。
+```shell script
+export PATH=/usr/bin/ffmpeg:${PATH}
+```
+
 4、其他的依赖库自行安装。
 
 
@@ -67,7 +89,7 @@ dataset/ST-CMDS-20170001_1-OS/20170001P00001I0003.wav	1
  - `resume`这个是用于恢复训练的，如何之前有训练过的模型，可以只用这个参数指定模型的路径，恢复训练。
  - `batch_size`根据自己显存的大小设置batch的大小。
  - `n_classes`是分类数量，这个可以查看上一步生成数据列表最后一个得到分类数量，但也记得加1，因为label是从0开始的。
- - `multiprocess`这个参数是指定使用多少个线程读取数据，因为读取音频需要比较慢，最好使用跟CPU同样个数的线程读取数据，但是Windows不支持多个线程读取数据，在Windows下必须是0。
+ - `multiprocess`这个参数是指定使用多少个线程读取数据，因为读取音频需要比较慢，训练默认也是使用4个多线程训练的，所以如果使用多线程读取数据，就不要使用多线程读取数据，否则反之，Ubuntu下最好使用多线程读取数据。但是Windows不支持多个线程读取数据，在Windows下必须是0。
  - `net`参数是指定使用的模型，有两种模型可以选择，较小的resnet34s，和较大的resnet34l。
  
 最后执行`train.py`开始训练，在训练过程中，每一步都会保存模型，同时也使用Tensorboard记录训练的logs信息。

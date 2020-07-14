@@ -4,7 +4,7 @@ from tqdm import tqdm
 import utils
 
 
-person = set()
+person = dict()
 
 
 # 生成ST-CMDS数据列表
@@ -14,12 +14,13 @@ def get_st_cmds_data_list(audio_path):
     for file in files:
         if '.wav' not in file:
             continue
-        person.add(file[:15])
+        if file[:15] not in person.keys():
+            person[file[:15]] = len(person)
         sound_path = os.path.join(audio_path, file)
         if sound_sum % 500 == 0:
-            f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+            f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[file[:15]]))
         else:
-            f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+            f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[file[:15]]))
         sound_sum += 1
 
 
@@ -31,11 +32,12 @@ def get_thchs30_data_list(audio_path):
             sound_path = os.path.join(root, file)
             if sound_path[-4:] != '.wav':
                 continue
-            person.add(file.split('_')[0])
+            if file.split('_')[0] not in person.keys():
+                person[file.split('_')[0]] = len(person)
             if sound_sum % 500 == 0:
-                f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+                f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[file.split('_')[0]]))
             else:
-                f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+                f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[file.split('_')[0]]))
             sound_sum += 1
 
 
@@ -47,11 +49,12 @@ def get_aishell_data_list(audio_path):
             sound_path = os.path.join(root, file)
             if sound_path[-4:] != '.wav':
                 continue
-            person.add(os.path.dirname(sound_path).split('\\')[-1])
+            if os.path.dirname(sound_path).split('\\')[-1] not in person.keys():
+                person[os.path.dirname(sound_path).split('\\')[-1]] = len(person)
             if sound_sum % 500 == 0:
-                f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+                f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[os.path.dirname(sound_path).split('\\')[-1]]))
             else:
-                f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+                f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[os.path.dirname(sound_path).split('\\')[-1]]))
             sound_sum += 1
 
 
@@ -60,14 +63,15 @@ def get_vox2_data_list(train_path):
     sound_sum = 0
     person_files = os.listdir(train_path)
     for id_path in person_files:
-        person.add(id_path)
+        if id_path not in person.keys():
+            person[id_path] = len(person)
         for root, dirs, files in os.walk(os.path.join(train_path, id_path)):
             for file in files:
                 sound_path = os.path.join(root, file)
                 if sound_sum % 500 == 0:
-                    f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+                    f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[id_path]))
                 else:
-                    f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), len(person) - 1))
+                    f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[id_path]))
                 sound_sum += 1
 
 
