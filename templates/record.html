@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <audio controls autoplay></audio>
+        <input onclick="startRecording()" type="button" value="录音" />
+        <input onclick="stopRecording()" type="button" value="停止" />
+        <input onclick="playRecording()" type="button" value="播放" />
+        <input onclick="uploadAudio()" type="button" value="提交" />
+        <input onclick="cancelAudio()" type="button" value="取消" />
+    </div>
+
+    <script type="text/javascript" src="record.js"></script>
+
+
+    <script>
+
+        var recorder;
+
+        var audio = document.querySelector('audio');
+
+        function startRecording() {
+            HZRecorder.get(function (rec) {
+                recorder = rec;
+                recorder.start();
+            });
+        }
+
+        function stopRecording() {
+            recorder.stop();
+        }
+
+        function playRecording() {
+            recorder.play(audio);
+        }
+
+        function cancelAudio(){
+            recorder.stop();
+            recorder.clear();
+        }
+
+        function uploadAudio() {
+            recorder.upload("http://192.168.89.141:5000/recognition", function (state, e) {
+                switch (state) {
+                    case 'uploading':
+                        var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
+                        console.log(percentComplete);
+                        break;
+                    case 'ok':
+                        alert(e.target.responseText);
+                        break;
+                    case 'error':
+                        alert("上传失败");
+                        break;
+                    case 'cancel':
+                        alert("上传被取消");
+                        break;
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>

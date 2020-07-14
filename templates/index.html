@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>声纹识别</title>
+</head>
+<body>
+<form action="http://192.168.89.141:5000/register" enctype="multipart/form-data" method="post">
+    注册声纹：<input type="file" required accept="audio/*" name="audio"><br>
+    注册名称：<input type="text" name="name"><br>
+
+    <input type="submit" value="上传">
+</form>
+
+<br/><br/><br/>
+<form action="http://192.168.89.141:5000/recognition" enctype="multipart/form-data" method="post">
+    预测声纹：<input type="file" required accept="audio/*" name="audio"><br>
+    <input type="submit" value="上传">
+</form>
+</body>
+</html>
