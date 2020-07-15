@@ -75,10 +75,12 @@ def main(args):
 
     # ==> load pre-trained model
     mgpu = len(keras.backend.tensorflow_backend._get_available_gpus())
+    initial_epoch = 0
     if args.resume:
         if os.path.isfile(args.resume):
             if mgpu == 1:
                 network.load_weights(os.path.join(args.resume))
+                initial_epoch = int(os.path.basename(args.resume).split('-')[1])
             else:
                 network.layers[mgpu + 1].load_weights(os.path.join(args.resume))
             print('==> successfully loading model {}.'.format(args.resume))
@@ -99,9 +101,10 @@ def main(args):
                                                  save_best_only=True),
                  normal_lr, tbcallbacks]
 
-    network.fit_generator(trn_gen,
+    network.fit_generator(generator=trn_gen,
                           steps_per_epoch=int(len(partition['train']) // args.batch_size),
                           epochs=args.epochs,
+                          initial_epoch=initial_epoch,
                           max_queue_size=10,
                           callbacks=callbacks,
                           use_multiprocessing=True,
