@@ -140,6 +140,7 @@ var HZRecorder = function (stream, config) {
     //上传
     this.upload = function (url, callback) {
         var fd = new FormData();
+        // 上传的文件名和数据
         fd.append("audio", this.getBlob());
         var xhr = new XMLHttpRequest();
         if (callback) {
