@@ -5,13 +5,13 @@ import uuid
 import model
 import keras
 import tensorflow
+import utils
 import numpy as np
 from flask import request, Flask, render_template
 from flask_cors import CORS
 
-import utils
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates", static_folder="static", static_url_path="/static")
 # 允许跨越访问
 CORS(app)
 
@@ -140,4 +140,4 @@ if __name__ == '__main__':
         load_audio_db(path)
     end = time.time()
     print('加载音频库完成，消耗时间：%fms' % (round((end - start) * 1000)))
-    app.run(host='192.168.89.141', port=5000)
+    app.run(host='localhost', port=5000)

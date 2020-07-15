@@ -32,7 +32,7 @@ parser.add_argument('--aggregation_mode', default='gvlad', choices=['avg', 'vlad
 parser.add_argument('--epochs', default=56, type=int)
 parser.add_argument('--lr', default=0.001, type=float)
 parser.add_argument('--warmup_ratio', default=0, type=float)
-parser.add_argument('--loss', default='amsoftmax', choices=['softmax', 'amsoftmax'], type=str)
+parser.add_argument('--loss', default='softmax', choices=['softmax', 'amsoftmax'], type=str)
 parser.add_argument('--optimizer', default='adam', choices=['adam', 'sgd'], type=str)
 args = parser.parse_args()
 
