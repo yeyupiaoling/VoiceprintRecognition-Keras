@@ -80,9 +80,9 @@ def main(args):
         if os.path.isfile(args.resume):
             if mgpu == 1:
                 network.load_weights(os.path.join(args.resume))
-                initial_epoch = int(os.path.basename(args.resume).split('-')[1])
             else:
                 network.layers[mgpu + 1].load_weights(os.path.join(args.resume))
+            initial_epoch = int(os.path.basename(args.resume).split('-')[1])
             print('==> successfully loading model {}.'.format(args.resume))
         else:
             print("==> no checkpoint found at '{}'".format(args.resume))
