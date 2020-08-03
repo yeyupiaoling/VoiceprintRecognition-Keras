@@ -1,6 +1,9 @@
 # Kersa-Speaker-Recognition
 
-本项目是基于[https://github.com/WeidiXie/VGG-Speaker-Recognition](https://github.com/WeidiXie/VGG-Speaker-Recognition)开发的，本项目主要是用于声纹识别，也有人称为说话人识别。本项目包括了自定义数据集的训练，声纹对比，和声纹识别。
+本项目是基于[VGG-Speaker-Recognition](https://github.com/WeidiXie/VGG-Speaker-Recognition)开发的，本项目主要是用于声纹识别，也有人称为说话人识别。本项目包括了自定义数据集的训练，声纹对比，和声纹识别。
+
+**本教程源码：[https://github.com/yeyupiaoling/Kersa-Speaker-Recognition](https://github.com/yeyupiaoling/Kersa-Speaker-Recognition)**
+
 
 # 安装环境
 
