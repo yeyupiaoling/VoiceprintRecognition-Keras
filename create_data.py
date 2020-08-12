@@ -3,7 +3,6 @@ import librosa
 from tqdm import tqdm
 import utils
 
-
 person = dict()
 
 
@@ -52,14 +51,50 @@ def get_aishell_data_list(audio_path):
             if os.path.dirname(sound_path).split('\\')[-1] not in person.keys():
                 person[os.path.dirname(sound_path).split('\\')[-1]] = len(person)
             if sound_sum % 500 == 0:
-                f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[os.path.dirname(sound_path).split('\\')[-1]]))
+                f_test.write(
+                    '%s\t%d\n' % (sound_path.replace('\\', '/'), person[os.path.dirname(sound_path).split('\\')[-1]]))
             else:
-                f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[os.path.dirname(sound_path).split('\\')[-1]]))
+                f_train.write(
+                    '%s\t%d\n' % (sound_path.replace('\\', '/'), person[os.path.dirname(sound_path).split('\\')[-1]]))
             sound_sum += 1
 
 
 # 生成VoxCeleb2数据列表
 def get_vox2_data_list(train_path):
+    sound_sum = 0
+    person_files = os.listdir(train_path)
+    for id_path in person_files:
+        if id_path not in person.keys():
+            person[id_path] = len(person)
+        for root, dirs, files in os.walk(os.path.join(train_path, id_path)):
+            for file in files:
+                sound_path = os.path.join(root, file)
+                if sound_sum % 500 == 0:
+                    f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[id_path]))
+                else:
+                    f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[id_path]))
+                sound_sum += 1
+
+
+# 生成aidatatang_200zh数据列表
+def get_aidatatang_200zh_data_list(train_path):
+    sound_sum = 0
+    person_files = os.listdir(train_path)
+    for id_path in person_files:
+        if id_path not in person.keys():
+            person[id_path] = len(person)
+        for root, dirs, files in os.walk(os.path.join(train_path, id_path)):
+            for file in files:
+                sound_path = os.path.join(root, file)
+                if sound_sum % 500 == 0:
+                    f_test.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[id_path]))
+                else:
+                    f_train.write('%s\t%d\n' % (sound_path.replace('\\', '/'), person[id_path]))
+                sound_sum += 1
+
+
+# 生成CN_Celeb数据列表
+def get_CN_Celeb_200zh_data_list(train_path):
     sound_sum = 0
     person_files = os.listdir(train_path)
     for id_path in person_files:
@@ -105,6 +140,10 @@ if __name__ == '__main__':
     get_st_cmds_data_list('dataset/ST-CMDS-20170001_1-OS')
     get_thchs30_data_list('dataset/data_thchs30')
     get_aishell_data_list('dataset/data_aishell')
-    get_vox2_data_list('dataset/VoxCeleb2')
+    get_vox2_data_list('dataset/dev/aac')
+    get_aidatatang_200zh_data_list('dataset/aidatatang_200zh')
+    get_CN_Celeb_200zh_data_list('dataset/CN-Celeb/data')
     f_test.close()
     f_train.close()
+    print(person)
+    print(len(person))
