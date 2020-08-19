@@ -98,7 +98,7 @@ dataset/ST-CMDS-20170001_1-OS/20170001P00001I0003.wav	1
 
 # 预测
 
-使用训练完成的模型，或者是官方提供的模型，笔者这里提供了国内的下载：[点击下载](https://resource.doiduoyi.com/#c9yq536)，把模型存放在`pretrained`目录下。
+使用训练完成的模型，或者是官方提供的模型，笔者这里提供了国内的下载：[点击下载](https://resource.doiduoyi.com/#w0c5949)，把模型存放在`pretrained`目录下。
 
 本项目提供三种预测方案：
 
@@ -133,5 +133,5 @@ dataset/ST-CMDS-20170001_1-OS/20170001P00001I0003.wav	1
 ## 模型下载
 | 模型 | 下载地址 |
 | :---: | :---: |
-| 官方提供的模型 | [点击下载](https://resource.doiduoyi.com/#c9yq536) |
+| 官方提供的模型 | [点击下载](https://resource.doiduoyi.com/#w0c5949) |
 | 自训练超大数据集的模型 | 训练中 |
