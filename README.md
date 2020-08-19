@@ -11,12 +11,12 @@
 
 1、安装Tensorflow GPU版本，CUDA为10.0，CUDNN为7。
 ```shell script
-pip install tensorflow-gpu==1.15.3
+pip install tensorflow-gpu==1.15.3 -i https://mirrors.aliyun.com/pypi/simple/
 ```
 
 2、安装Keras。
 ```shell script
-pip install keras==2.3.1
+pip install keras==2.3.1 -i https://mirrors.aliyun.com/pypi/simple/
 ```
 
 3、安装librosa库，最简单的方式就是使用pip命令安装，如下。如安装的是librosa 0.6.3--0.7.2，依赖的是numba0.49.0，源码安装的时候要留意，否者会报错`No module named numba.decorators`。

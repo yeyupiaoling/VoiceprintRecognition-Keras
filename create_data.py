@@ -126,11 +126,12 @@ def delete_error_audio(path):
             mag_T = mag.T
             freq, time = mag_T.shape
             if time <= 250:
-                # os.remove(audio_path)
+                os.remove(audio_path)
                 print('音频过短，删除:%s' % audio_path)
-        except:
-            # os.remove(audio_path)
+        except Exception as e:
+            os.remove(audio_path)
             print('音频错误，删除:%s' % audio_path)
+            print("错误原因：", e)
 
 
 if __name__ == '__main__':
