@@ -45,11 +45,6 @@ def main(args):
     # config = tf.ConfigProto()
     # config.gpu_options.allow_growth = True
     # _ = tf.Session(config=config)
-    # ==================================
-    #       Get Train/Val.
-    # ==================================
-    trnlist, trnlb = utils.get_voxceleb2_datalist(path=args.train_list)
-    vallist, vallb = utils.get_voxceleb2_datalist(path=args.val_list)
 
     # construct the data generator.
     params = {'dim': (257, 250, 1),
@@ -67,6 +62,8 @@ def main(args):
 
     if args.train_data is None and args.val_data is None:
         # Datasets
+        trnlist, trnlb = utils.get_voxceleb2_datalist(path=args.train_list)
+        vallist, vallb = utils.get_voxceleb2_datalist(path=args.val_list)
         partition = {'train': trnlist.flatten(), 'val': vallist.flatten()}
         labels = {'train': trnlb.flatten(), 'val': vallb.flatten()}
         # Generators
