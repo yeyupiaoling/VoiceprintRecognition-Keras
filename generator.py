@@ -84,6 +84,6 @@ class DataGenerator(keras.utils.Sequence):
                 X[i, :, :, 0] = utils.load_data(data, win_length=self.win_length, sr=self.sr, hop_length=self.hop_length,
                                                 n_fft=self.nfft, spec_len=self.spec_len, binary_file=True)
                 # Store class
-                y[i] = self.audioData.get_label(ID)
+                y[i] = self.audioData.get_label(ID)[0]
 
         return X, keras.utils.to_categorical(y, num_classes=self.n_classes)
