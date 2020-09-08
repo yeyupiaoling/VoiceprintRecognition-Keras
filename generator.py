@@ -56,11 +56,19 @@ class DataGenerator(keras.utils.Sequence):
             np.random.shuffle(self.indexes)
 
     def __data_generation_mp(self, list_IDs_temp, indexes):
-        X = [self.mp_pooler.apply_async(utils.load_data,
-                                        args=(ID, self.win_length, self.sr, self.hop_length,
-                                              self.nfft, self.spec_len)) for ID in list_IDs_temp]
-        X = np.expand_dims(np.array([p.get() for p in X]), -1)
-        y = self.labels[indexes]
+        if self.audioData is None:
+            X = [self.mp_pooler.apply_async(utils.load_data,
+                                            args=(ID, self.win_length, self.sr, self.hop_length,
+                                                  self.nfft, self.spec_len)) for ID in list_IDs_temp]
+            X = np.expand_dims(np.array([p.get() for p in X]), -1)
+            y = self.labels[indexes]
+        else:
+            X = [self.mp_pooler.apply_async(utils.load_data,
+                                            args=(np.fromstring(self.audioData.get_data(ID), dtype=np.float32),
+                                                  self.win_length, self.sr, self.hop_length,
+                                                  self.nfft, self.spec_len, True)) for ID in list_IDs_temp]
+            X = np.expand_dims(np.array([p.get() for p in X]), -1)
+            y = [self.audioData.get_label(indexe)[0] for indexe in indexes]
         return X, keras.utils.to_categorical(y, num_classes=self.n_classes)
 
     def __data_generation(self, list_IDs_temp, indexes):
