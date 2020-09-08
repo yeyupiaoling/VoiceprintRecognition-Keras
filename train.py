@@ -22,7 +22,7 @@ parser.add_argument('--batch_size',      default=32,       type=int)
 parser.add_argument('--n_classes',       default=5994,     type=int, help='class dim number')
 parser.add_argument('--train_list',      default='dataset/train_list.txt', type=str, help='train data list path')
 parser.add_argument('--val_list',        default='dataset/test_list.txt',   type=str, help='val data list path')
-parser.add_argument('--train_data',      default='dataset/train_data', type=str, help='train data binary file path')
+parser.add_argument('--train_data',      default='dataset/test_data', type=str, help='train data binary file path')
 parser.add_argument('--val_data',        default='dataset/test_data',   type=str, help='val data binary file path')
 parser.add_argument('--multiprocess',    default=0,        type=int, help='multi process read dataset. Windows must is 0')
 # set up network configuration.
@@ -73,9 +73,9 @@ def main(args):
     else:
         trainAudioData = AudioData(args.train_data)
         testAudioData = AudioData(args.val_data)
-        trn_gen = generator.DataGenerator(trainAudioData.get_keys(), audioData=trainAudioData, **params)
-        val_gen = generator.DataGenerator(testAudioData.get_keys(), audioData=testAudioData, **params)
-        image_len = len(trainAudioData.get_keys())
+        trn_gen = generator.DataGenerator(list(trainAudioData.get_keys()), audioData=trainAudioData, **params)
+        val_gen = generator.DataGenerator(list(testAudioData.get_keys()), audioData=testAudioData, **params)
+        image_len = len(list(trainAudioData.get_keys()))
 
     network = model.vggvox_resnet2d_icassp(input_dim=params['dim'],
                                            num_class=params['n_classes'],
