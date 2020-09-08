@@ -21,7 +21,7 @@ parser.add_argument('--log_path',        default='logs',   type=str, help='save 
 parser.add_argument('--batch_size',      default=32,       type=int)
 parser.add_argument('--n_classes',       default=5994,     type=int, help='class dim number')
 parser.add_argument('--train_list',      default='dataset/train_list.txt', type=str, help='train data list path')
-parser.add_argument('--val_list',        default='dataset/val_list.txt',   type=str, help='val data list path')
+parser.add_argument('--val_list',        default='dataset/test_list.txt',   type=str, help='val data list path')
 parser.add_argument('--train_data',      default='dataset/train_data', type=str, help='train data binary file path')
 parser.add_argument('--val_data',        default='dataset/test_data',   type=str, help='val data binary file path')
 parser.add_argument('--multiprocess',    default=0,        type=int, help='multi process read dataset. Windows must is 0')
@@ -72,11 +72,13 @@ def main(args):
         # Generators
         trn_gen = generator.DataGenerator(partition['train'], labels=labels['train'], **params)
         val_gen = generator.DataGenerator(partition['val'], labels=labels['val'], **params)
+        image_len = len(partition['train'])
     else:
         trainAudioData = AudioData(args.train_data)
         testAudioData = AudioData(args.val_data)
         trn_gen = generator.DataGenerator(trainAudioData.get_keys(), audioData=trainAudioData, **params)
         val_gen = generator.DataGenerator(testAudioData.get_keys(), audioData=testAudioData, **params)
+        image_len = len(trainAudioData.get_keys())
 
     network = model.vggvox_resnet2d_icassp(input_dim=params['dim'],
                                            num_class=params['n_classes'],
@@ -98,7 +100,7 @@ def main(args):
 
     print(network.summary())
     print('==> gpu {} is, training {} images, classes: 0-{} loss: {}, aggregation: {}'
-          .format(args.gpu, len(partition['train']), np.max(labels['train']), args.loss, args.aggregation_mode))
+          .format(args.gpu, image_len, args.n_classes, args.loss, args.aggregation_mode))
 
     model_path, log_path = set_path(args)
     normal_lr = keras.callbacks.LearningRateScheduler(step_decay)
@@ -111,7 +113,7 @@ def main(args):
                  normal_lr, tbcallbacks]
 
     network.fit_generator(generator=trn_gen,
-                          steps_per_epoch=int(len(partition['train']) // args.batch_size),
+                          steps_per_epoch=int(image_len // args.batch_size),
                           epochs=args.epochs,
                           initial_epoch=initial_epoch,
                           max_queue_size=10,
