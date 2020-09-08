@@ -79,7 +79,7 @@ class DataGenerator(keras.utils.Sequence):
                 y[i] = self.labels[indexes[i]]
         else:
             for i, ID in enumerate(list_IDs_temp):
-                data = self.audioData.get_data(ID)
+                data = np.fromstring(self.audioData.get_data(ID), dtype=np.float32)
                 # Store sample
                 X[i, :, :, 0] = utils.load_data(data, win_length=self.win_length, sr=self.sr, hop_length=self.hop_length,
                                                 n_fft=self.nfft, spec_len=self.spec_len, binary_file=True)

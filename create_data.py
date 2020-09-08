@@ -15,16 +15,16 @@ class DataSetWriter(object):
         self.offset = 0
         self.header = ''
 
-    def add_img(self, key, img):
+    def add_wav(self, key, wav):
         # 写入图像数据
         self.data_file.write(struct.pack('I', len(key)))
         self.data_file.write(key.encode('ascii'))
-        self.data_file.write(struct.pack('I', len(img)))
-        self.data_file.write(img)
+        self.data_file.write(struct.pack('I', len(wav)))
+        self.data_file.write(wav)
         self.offset += 4 + len(key) + 4
-        self.header = key + '\t' + str(self.offset) + '\t' + str(len(img)) + '\n'
+        self.header = key + '\t' + str(self.offset) + '\t' + str(len(wav)) + '\n'
         self.header_file.write(self.header.encode('ascii'))
-        self.offset += len(img)
+        self.offset += len(wav)
 
     def add_label(self, label):
         # 写入标签数据
@@ -46,7 +46,7 @@ def convert_data(data_list_path, output_prefix, sr=16000):
             wav, sr_ret = librosa.load(path, sr=sr)
             assert sr_ret == sr
             # 写入对应的数据
-            writer.add_img(key, wav.tostring())
+            writer.add_wav(key, wav.tostring())
             writer.add_label('\t'.join([key, label.replace('\n', '')]))
         except Exception as e:
             print(e)
