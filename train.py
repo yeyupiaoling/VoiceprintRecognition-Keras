@@ -19,10 +19,10 @@ parser.add_argument('--resume',          default='',       type=str, help='resum
 parser.add_argument('--save_model_path', default='models', type=str, help='save model parent path')
 parser.add_argument('--log_path',        default='logs',   type=str, help='save tensorboard log parent path')
 parser.add_argument('--batch_size',      default=32,       type=int)
-parser.add_argument('--n_classes',       default=5994,     type=int, help='class dim number')
+parser.add_argument('--n_classes',       default=6929,     type=int, help='class dim number')
 parser.add_argument('--train_list',      default='dataset/train_list.txt', type=str, help='train data list path')
 parser.add_argument('--val_list',        default='dataset/test_list.txt',   type=str, help='val data list path')
-parser.add_argument('--train_data',      default='dataset/test_data', type=str, help='train data binary file path')
+parser.add_argument('--train_data',      default='dataset/train_data', type=str, help='train data binary file path')
 parser.add_argument('--val_data',        default='dataset/test_data',   type=str, help='val data binary file path')
 parser.add_argument('--multiprocess',    default=0,        type=int, help='multi process read dataset. Windows must is 0')
 # set up network configuration.
