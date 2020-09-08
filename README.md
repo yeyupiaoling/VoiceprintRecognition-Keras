@@ -75,11 +75,14 @@ dataset/ST-CMDS-20170001_1-OS/20170001P00001I0002.wav	1
 dataset/ST-CMDS-20170001_1-OS/20170001P00001I0003.wav	1
 ```
 
-1、本项目默认是支持Aishell，Free ST-Chinese-Mandarin-Corpus，THCHS-30，VoxCeleb2这4个数据集的，需要把他们下载并解压到dataset目录下，有一点要注意的是，VoxCeleb2数据集解压之后，把训练集和测试集里的aac目录下的文件夹都放在同一个VoxCeleb2目录下，他们的下载地址如下。
+1、本项目默认是支持Aishell，Free ST-Chinese-Mandarin-Corpus，THCHS-30，aidatatang_200zh，CN-Celeb，VoxCeleb2这6个数据集的，需要把他们下载并解压到dataset目录下，有一点要注意的是，VoxCeleb2非常大，建议使用，其他的数据集选择性使用。VoxCeleb2数据集解压之后，把训练集和测试集里的aac目录下的文件夹都放在同一个VoxCeleb2目录下，他们的下载地址如下。
 
  - Aishell：[http://www.openslr.org/resources/33](http://www.openslr.org/resources/33)
  - Free ST-Chinese-Mandarin-Corpus：[http://www.openslr.org/resources/38](http://www.openslr.org/resources/38)
  - THCHS-30：[http://www.openslr.org/resources/18](http://www.openslr.org/resources/18)
+ - THCHS-30：[http://www.openslr.org/resources/18](http://www.openslr.org/resources/18)
+ - aidatatang_200zh：[http://www.openslr.org/resources/62](http://www.openslr.org/resources/62)
+ - CN-Celeb：[http://www.openslr.org/resources/82](http://www.openslr.org/resources/82)
  - VoxCeleb2：[http://www.robots.ox.ac.uk/~vgg/data/voxceleb/vox2.html](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/vox2.html)
  
 2、下载并解压完成之后，执行`create_data.py`生成数据列表，如何读者有其他自定义的数据集，可以参考这个文件中的代码，生成自己数据集的数据列表，其中`delete_error_audio()`函数是检查数据是否有错误或者过短的，这个比较耗时，如果读者能够保证数据没有问题，可以跳过这个函数。
