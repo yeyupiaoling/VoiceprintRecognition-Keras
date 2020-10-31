@@ -91,7 +91,7 @@ def set_mp(processes=8):
     except:
         pass
 
-    if processes:
+    if processes > 0:
         pool = mp.Pool(processes=processes, initializer=init_worker)
     else:
         pool = None
