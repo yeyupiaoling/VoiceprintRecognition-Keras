@@ -28,7 +28,7 @@ parser.add_argument('--multiprocess',    default=0,        type=int, help='multi
 # set up network configuration.
 parser.add_argument('--net',             default='resnet34s', choices=['resnet34s', 'resnet34l'], type=str)
 parser.add_argument('--ghost_cluster',   default=2,        type=int)
-parser.add_argument('--vlad_cluster',    default=10,       type=int)
+parser.add_argument('--vlad_cluster',    default=8,        type=int)
 parser.add_argument('--bottleneck_dim',  default=512,      type=int)
 parser.add_argument('--aggregation_mode', default='gvlad', choices=['avg', 'vlad', 'gvlad'], type=str)
 # set up learning rate, training loss and optimizer.
