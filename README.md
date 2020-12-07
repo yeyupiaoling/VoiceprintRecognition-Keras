@@ -137,4 +137,4 @@ dataset/ST-CMDS-20170001_1-OS/20170001P00001I0003.wav	1
 | 模型 | 下载地址 | 说明 |
 | :---: | :---: | :---: |
 | 官方提供的模型 | [点击下载](https://resource.doiduoyi.com/#w0c5949) | 英文数据集训练 |
-| 自训练超大数据集的模型 | [点击下载](https://share.weiyun.com/Ve3ixkPA) | 中英文数据集训练，算力不足，并没有完全训练完 |
+| 自训练超大数据集的模型 | [点击下载](https://resource.doiduoyi.com/#8omu237) | 中英文数据集训练，算力不足，并没有完全训练完 |
