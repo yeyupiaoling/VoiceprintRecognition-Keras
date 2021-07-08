@@ -1,0 +1,8 @@
+numba==0.52.0
+librosa==0.8.0
+numpy==1.19.2
+tqdm==4.59.0
+webrtcvad==2.0.10
+pyaudio==0.2.11
+pyworld==0.2.12
+pydub==0.25.1
