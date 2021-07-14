@@ -7,7 +7,6 @@ import numpy as np
 from utils import generator, model, utils
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--gpu',             default='0',      type=str,   help='训练使用的GPU序号，使用英文逗号,隔开，如：0,1')
 parser.add_argument('--num_epoch',       default=56,       type=int,   help='训练的轮数')
 parser.add_argument('--lr',              default=0.001,    type=float, help='初始学习率的大小')
 parser.add_argument('--batch_size',      default=16,       type=int,   help='训练的批量大小')
@@ -21,8 +20,6 @@ utils.print_arguments(args)
 
 
 def main(args):
-    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
-
     # Datasets
     trnlist, trnlb = utils.get_data_list(path=args.train_list)
     vallist, vallb = utils.get_data_list(path=args.val_list)
@@ -38,24 +35,17 @@ def main(args):
     image_len = len(trnlist.flatten())
 
     # 获取模型
-    mgpu = len(args.gpu.split(','))
-    network = model.vggvox_resnet2d_icassp(num_classes=args.num_classes, mode='train', mgpu=mgpu)
+    network = model.vggvox_resnet2d_icassp(num_classes=args.num_classes, mode='train')
 
     # 加载预训练模型
     initial_epoch = 0
     if args.resume:
-        if os.path.isfile(args.resume):
-            if mgpu == 1:
-                network.load_weights(os.path.join(args.resume))
-            else:
-                network.layers[mgpu + 1].load_weights(os.path.join(args.resume))
-            initial_epoch = int(os.path.basename(args.resume).split('-')[1])
-            print('==> successfully loading model {}.'.format(args.resume))
-        else:
-            print("==> no checkpoint found at '{}'".format(args.resume))
+        network.load_weights(os.path.join(args.resume))
+        initial_epoch = int(os.path.basename(args.resume)[:-3].split('-')[1])
+        print('==> successfully loading model {}.'.format(args.resume))
 
     print(network.summary())
-    print('==> gpu {} is, training {} audios, classes: {} '.format(args.gpu, image_len, args.num_classes))
+    print('==> training {} audios, classes: {} '.format(image_len, args.num_classes))
 
     if not os.path.exists(args.model_path):
         os.makedirs(args.model_path)

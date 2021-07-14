@@ -7,24 +7,6 @@ from utils import backbone
 weight_decay = 1e-4
 
 
-class ModelMGPU(keras.Model):
-    def __init__(self, ser_model, gpus, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        pmodel = keras.utils.multi_gpu_model(ser_model, gpus)
-        self.__dict__.update(pmodel.__dict__)
-        self._smodel = ser_model
-
-    def __getattribute__(self, attrname):
-        '''Override load and save methods to be used from the serial-model. The
-        serial-model holds references to the weights in the multi-gpu model.
-        '''
-        # return Model.__getattribute__(self, attrname)
-        if 'load' in attrname or 'save' in attrname:
-            return getattr(self._smodel, attrname)
-
-        return super(ModelMGPU, self).__getattribute__(attrname)
-
-
 class VladPooling(keras.layers.Layer):
     '''
     This layer follows the NetVlad, GhostVlad
@@ -82,7 +64,7 @@ def amsoftmax_loss(y_true, y_pred, scale=30, margin=0.35):
     return K.categorical_crossentropy(y_true, y_pred, from_logits=True)
 
 
-def vggvox_resnet2d_icassp(num_classes=None, input_dim=(257, 250, 1), mode='train', mgpu=1):
+def vggvox_resnet2d_icassp(num_classes=None, input_dim=(257, 250, 1), mode='train'):
     vlad_clusters = 8
     ghost_clusters = 2
     bottleneck_dim = 512
@@ -141,8 +123,6 @@ def vggvox_resnet2d_icassp(num_classes=None, input_dim=(257, 250, 1), mode='trai
     model = keras.models.Model(inputs, y)
 
     if mode == 'train':
-        if mgpu > 1:
-            model = ModelMGPU(model, gpus=mgpu)
         # set up optimizer.
         opt = keras.optimizers.Adam(lr=1e-3)
         model.compile(optimizer=opt, loss=trnloss, metrics=['acc'])
