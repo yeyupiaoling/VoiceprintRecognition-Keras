@@ -11,7 +11,7 @@
 # 模型下载
 | 数据集 | 类别数量 | 准确率 | 下载地址 |
 | :---: | :---: | :---: | :---: |
-| [中文语音语料数据集](https://github.com/KuangDD/zhvoice)| 3242 | 训练中 | [训练中]() |
+| [中文语音语料数据集](https://github.com/KuangDD/zhvoice)| 3242 | 0.999787 | [点击下载](https://download.csdn.net/download/qq_33200967/20359881) |
 
 
 # 安装环境
@@ -91,16 +91,16 @@ python eval.py
 ```
 -----------  Configuration Arguments -----------
 list_path: dataset/test_list.txt
-model_path: models/resnet34-56.h5
+model_path: models/resnet34-51.h5
 ------------------------------------------------
-==> successfully loading model models/resnet34-56.h5.
+==> successfully loading model models/resnet34-51.h5.
 
 开始提取全部的音频特征...
 100%|█████████████████████████████████████████████████████| 5332/5332 [01:09<00:00, 77.06it/s]
 开始两两对比音频特征...
 100%|█████████████████████████████████████████████████████| 5332/5332 [01:43<00:00, 51.62it/s]
 100%|█████████████████████████████████████████████████████| 100/100 [00:03<00:00, 28.04it/s]
-当阈值为0.700000, 准确率最大，准确率为：0.999950
+当阈值为0.790000, 准确率最大，准确率为：0.999787
 ```
 
 # 声纹对比
@@ -112,14 +112,14 @@ python infer_contrast.py --audio_path1=audio/a_1.wav --audio_path2=audio/b_2.wav
 输出类似如下：
 ```
 -----------  Configuration Arguments -----------
-audio_path1: audio/a_1.wav
-audio_path2: audio/b_2.wav
-model_path: models/resnet34-56.h5
-threshold: 0.7
+audio1_path: audio/b_1.wav
+audio2_path: audio/a_2.wav
+model_path: models/resnet34-51.h5
+threshold: 0.79
 ------------------------------------------------
-==> successfully loading model models/resnet34-56.h5.
+==> successfully loading model models/resnet34-51.h5.
 
-audio/a_1.wav 和 audio/b_2.wav 不是同一个人，相似度为：0.020499
+audio/b_1.wav 和 audio/a_2.wav 不是同一个人，相似度仅为：0.453039，平均预测时间：849ms
 ```
 
 
@@ -134,8 +134,8 @@ python infer_recognition.py
 ```
 -----------  Configuration Arguments -----------
 audio_db: audio_db
-model_path: models/resnet34-56.h5
-threshold: 0.7
+model_path: models/resnet34-51.h5
+threshold: 0.79
 ------------------------------------------------
 ==> successfully loading model models/resnet34-56.h5.
 

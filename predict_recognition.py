@@ -11,7 +11,7 @@ from utils.record import RecordAudio
 parser = argparse.ArgumentParser()
 parser.add_argument('--audio_db',    default='audio_db/',              type=str,   help='音频库的路径')
 parser.add_argument('--threshold',   default=0.7,                      type=float, help='判断是否为同一个人的阈值')
-parser.add_argument('--model_path',  default=r'models/resnet34-01.h5', type=str,   help='模型的路径')
+parser.add_argument('--model_path',  default=r'models/resnet34-51.h5', type=str,   help='模型的路径')
 args = parser.parse_args()
 
 person_feature = []

@@ -9,7 +9,7 @@ from utils.utils import print_arguments
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--list_path',   default='dataset/test_list.txt',   type=str, help='用于测试的数据列表')
-parser.add_argument('--model_path',  default=r'models/resnet34-05.h5',  type=str, help='模型的路径')
+parser.add_argument('--model_path',  default=r'models/resnet34-51.h5',  type=str, help='模型的路径')
 args = parser.parse_args()
 
 print_arguments(args)

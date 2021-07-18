@@ -117,6 +117,13 @@ def vggvox_resnet2d_icassp(num_classes=None, input_dim=(257, 250, 1), mode='trai
                                bias_regularizer=keras.regularizers.l2(weight_decay),
                                name='prediction')(x_l2)
         trnloss = amsoftmax_loss
+        # y = keras.layers.Dense(num_classes, activation='softmax',
+        #                        kernel_initializer='orthogonal',
+        #                        use_bias=False, trainable=True,
+        #                        kernel_regularizer=keras.regularizers.l2(weight_decay),
+        #                        bias_regularizer=keras.regularizers.l2(weight_decay),
+        #                        name='prediction')(x)
+        # trnloss = 'categorical_crossentropy'
     else:
         y = keras.layers.Lambda(lambda x: keras.backend.l2_normalize(x, 1))(x)
 
