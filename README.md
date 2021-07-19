@@ -91,9 +91,9 @@ python eval.py
 ```
 -----------  Configuration Arguments -----------
 list_path: dataset/test_list.txt
-model_path: models/resnet34-51.h5
+model_path: models/resnet34-56.h5
 ------------------------------------------------
-==> successfully loading model models/resnet34-51.h5.
+==> successfully loading model models/resnet34-56.h5.
 
 开始提取全部的音频特征...
 100%|█████████████████████████████████████████████████████| 5332/5332 [01:09<00:00, 77.06it/s]
@@ -114,12 +114,12 @@ python infer_contrast.py --audio_path1=audio/a_1.wav --audio_path2=audio/b_2.wav
 -----------  Configuration Arguments -----------
 audio1_path: audio/b_1.wav
 audio2_path: audio/a_2.wav
-model_path: models/resnet34-51.h5
-threshold: 0.79
+model_path: models/resnet34-56.h5
+threshold: 0.7
 ------------------------------------------------
-==> successfully loading model models/resnet34-51.h5.
+==> successfully loading model models/resnet34-56.h5.
 
-audio/b_1.wav 和 audio/a_2.wav 不是同一个人，相似度仅为：0.453039，平均预测时间：849ms
+audio/b_1.wav 和 audio/a_2.wav 不是同一个人，相似度仅为：0.671383，平均预测时间：849ms
 ```
 
 
@@ -134,8 +134,8 @@ python infer_recognition.py
 ```
 -----------  Configuration Arguments -----------
 audio_db: audio_db
-model_path: models/resnet34-51.h5
-threshold: 0.79
+model_path: models/resnet34-56.h5
+threshold: 0.7
 ------------------------------------------------
 ==> successfully loading model models/resnet34-56.h5.
 

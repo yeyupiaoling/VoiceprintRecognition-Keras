@@ -10,8 +10,8 @@ from utils.utils import print_arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--audio1_path', default='audio/b_1.wav',           type=str,   help='预测第一个音频')
 parser.add_argument('--audio2_path', default='audio/a_2.wav',           type=str,   help='预测第二个音频')
-parser.add_argument('--threshold',   default=0.79,                       type=float, help='判断是否为同一个人的阈值')
-parser.add_argument('--model_path',  default=r'models/resnet34-51.h5',  type=str,   help='模型的路径')
+parser.add_argument('--threshold',   default=0.7,                       type=float, help='判断是否为同一个人的阈值')
+parser.add_argument('--model_path',  default=r'models/resnet34-56.h5',  type=str,   help='模型的路径')
 args = parser.parse_args()
 print_arguments(args)
 

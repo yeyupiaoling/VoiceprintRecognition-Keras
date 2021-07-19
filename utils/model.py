@@ -104,26 +104,14 @@ def vggvox_resnet2d_icassp(num_classes=None, input_dim=(257, 250, 1), mode='trai
                            bias_regularizer=keras.regularizers.l2(weight_decay),
                            name='fc6')(x)
 
-    # ===============================================
-    #            AMSoftmax
-    # ===============================================
     if mode != 'eval':
-        x_l2 = keras.layers.Lambda(lambda x: K.l2_normalize(x, 1))(x)
-        y = keras.layers.Dense(num_classes,
+        # 分类
+        y = keras.layers.Dense(num_classes, activation='softmax',
                                kernel_initializer='orthogonal',
                                use_bias=False, trainable=True,
-                               kernel_constraint=keras.constraints.unit_norm(),
                                kernel_regularizer=keras.regularizers.l2(weight_decay),
                                bias_regularizer=keras.regularizers.l2(weight_decay),
-                               name='prediction')(x_l2)
-        trnloss = amsoftmax_loss
-        # y = keras.layers.Dense(num_classes, activation='softmax',
-        #                        kernel_initializer='orthogonal',
-        #                        use_bias=False, trainable=True,
-        #                        kernel_regularizer=keras.regularizers.l2(weight_decay),
-        #                        bias_regularizer=keras.regularizers.l2(weight_decay),
-        #                        name='prediction')(x)
-        # trnloss = 'categorical_crossentropy'
+                               name='prediction')(x)
     else:
         y = keras.layers.Lambda(lambda x: keras.backend.l2_normalize(x, 1))(x)
 
@@ -132,5 +120,5 @@ def vggvox_resnet2d_icassp(num_classes=None, input_dim=(257, 250, 1), mode='trai
     if mode == 'train':
         # set up optimizer.
         opt = keras.optimizers.Adam(lr=1e-3)
-        model.compile(optimizer=opt, loss=trnloss, metrics=['acc'])
+        model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['acc'])
     return model
