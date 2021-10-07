@@ -9,9 +9,10 @@
 
 
 # 模型下载
-| 数据集 | 类别数量 | 准确率 | 下载地址 |
-| :---: | :---: | :---: | :---: |
-| [中文语音语料数据集](https://github.com/fighting41love/zhvoice)| 3242 | 0.999787 | [点击下载](https://download.csdn.net/download/qq_33200967/20359881) |
+| 数据集 | 类别数量 | 下载地址 |
+| :---: | :---: | :---: |
+| [中文语音语料数据集](https://github.com/fighting41love/zhvoice) | 3242 | [点击下载](https://download.csdn.net/download/qq_33200967/20359881) |
+| 更大数据集 | 6235 | [点击下载](https://download.csdn.net/download/qq_33200967/29185147) |
 
 
 # 安装环境
