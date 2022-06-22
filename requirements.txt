@@ -1,5 +1,5 @@
 numba==0.52.0
 librosa==0.8.0
-numpy==1.19.2
+numpy==1.22.0
 tqdm==4.59.0
 pyaudio==0.2.11
