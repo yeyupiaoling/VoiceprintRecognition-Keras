@@ -2,6 +2,8 @@
 
 本项目说是使用Keras，但使用的都是Tensorflow下的keras接口，本项目主要是用于声纹识别，也有人称为说话人识别。本项目包括了自定义数据集的训练，声纹对比，和声纹识别。
 
+**建议你使用这个版本 [VoiceprintRecognition-Pytorch](https://github.com/yeyupiaoling/VoiceprintRecognition-Pytorch) 或者 [VoiceprintRecognition-PaddlePaddle](https://github.com/yeyupiaoling/VoiceprintRecognition-PaddlePaddle) ，本项目已不维护。**
+
 使用环境：
 
  - Python 3.7
